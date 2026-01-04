@@ -47,9 +47,9 @@ public class WritingService
         return topic;
     }
 
-    public async Task<(string Original, string Revised, string Feedback)> ReviseTextAsync(string text)
+    public async Task<(string Original, string Revised, string Feedback)> ReviseTextAsync(string text, string? originalLanguage = null)
     {
-        _logger.LogInformation("Starting text revision process.");
+        _logger.LogInformation("Starting text revision process. Language: {Language}", originalLanguage ?? "Not specified");
         var systemPrompt = await _promptService.GetPromptAsync("WritingRevise");
         
         if (string.IsNullOrEmpty(systemPrompt))
@@ -65,6 +65,7 @@ public class WritingService
         {
             Id = Guid.NewGuid(),
             OriginalText = text,
+            OriginalLanguage = originalLanguage,
             RevisedText = revised,
             Feedback = feedback,
             CreatedAt = DateTime.UtcNow

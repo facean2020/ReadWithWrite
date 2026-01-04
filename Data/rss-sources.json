@@ -46,6 +46,23 @@
     "Url": "https://example.com/rss",
     "Name": "Example RSS",
     "Description": "User uploaded source"
-
+  },
+  {
+    "Id": "0374b0d3-6e37-46d7-9bfd-1fe769867166",
+    "Url": "https://example.com/rss",
+    "Name": "Example RSS",
+    "Description": "User uploaded source"
+  },
+  {
+    "Id": "747335c5-8288-4e50-84bf-eefcd1db7f18",
+    "Url": "https://example.com/rss",
+    "Name": "Example RSS",
+    "Description": "User uploaded source"
+  },
+  {
+    "Id": "574e364f-f29f-449f-8a9c-f321d9292668",
+    "Url": "https://example.com/rss",
+    "Name": "Example RSS",
+    "Description": "User uploaded source"
   }
 ]

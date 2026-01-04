@@ -46,7 +46,7 @@ public class WritingIntegrationTests : IClassFixture<WebApplicationFactory<Progr
     {
         // Arrange
         var client = _factory.CreateClient();
-        var request = new { text = "I has went to school yesterday." };
+        var request = new { text = "I has went to school yesterday.", originalLanguage = "Chinese" };
 
         // Act
         var response = await client.PostAsJsonAsync("/api/writing/revise", request);

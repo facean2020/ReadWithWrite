@@ -81,7 +81,8 @@ Response 200:
 POST /api/writing/revise
 Body:
 {
-  "text": "I has went to school yesterday."
+  "text": "I has went to school yesterday.",
+  "originalLanguage": "Chinese"
 }
 
 Response 200:

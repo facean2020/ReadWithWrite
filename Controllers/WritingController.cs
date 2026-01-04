@@ -50,7 +50,7 @@ public class WritingController : ControllerBase
 
         try
         {
-            var result = await _writingService.ReviseTextAsync(request.Text);
+            var result = await _writingService.ReviseTextAsync(request.Text, request.OriginalLanguage);
             return Ok(new
             {
                 original = result.Original,
@@ -69,4 +69,5 @@ public class WritingController : ControllerBase
 public class ReviseRequest
 {
     public required string Text { get; set; }
+    public string? OriginalLanguage { get; set; }
 }
