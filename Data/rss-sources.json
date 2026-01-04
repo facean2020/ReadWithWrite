@@ -1,0 +1,20 @@
+[
+  {
+    "Id": "d2886645-ae9a-4919-918d-184835bc5a27",
+    "Url": "https://techcrunch.com/feed/",
+    "Name": "TechCrunch",
+    "Description": "The latest technology news and information on startups."
+  },
+  {
+    "Id": "e1b2c3d4-5678-90ab-cdef-1234567890ab",
+    "Url": "https://www.theverge.com/rss/index.xml",
+    "Name": "The Verge",
+    "Description": "The Verge is a computer science and technology news website."
+  },
+  {
+    "Id": "348e8e73-2f75-4ad3-b13a-b3c5ca059c6c",
+    "Url": "https://example.com/rss",
+    "Name": "Example RSS",
+    "Description": "User uploaded source"
+  }
+]
