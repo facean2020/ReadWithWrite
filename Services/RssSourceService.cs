@@ -22,15 +22,19 @@ public class FileRssSourceService : IRssSourceService
 
     public async Task<IEnumerable<RssSourceDto>> GetAllAsync()
     {
+        _logger.LogDebug("Reading RSS sources from {FilePath}", _filePath);
         if (!File.Exists(_filePath))
         {
+            _logger.LogWarning("RSS sources file not found at {FilePath}", _filePath);
             return Enumerable.Empty<RssSourceDto>();
         }
 
         try
         {
             using var stream = File.OpenRead(_filePath);
-            return await JsonSerializer.DeserializeAsync<List<RssSourceDto>>(stream) ?? new List<RssSourceDto>();
+            var sources = await JsonSerializer.DeserializeAsync<List<RssSourceDto>>(stream) ?? new List<RssSourceDto>();
+            _logger.LogDebug("Successfully read {Count} RSS sources", sources.Count);
+            return sources;
         }
         catch (Exception ex)
         {
@@ -41,6 +45,7 @@ public class FileRssSourceService : IRssSourceService
 
     public async Task AddAsync(RssSourceUploadRequest request)
     {
+        _logger.LogInformation("Adding new RSS source: {Url}", request.Url);
         var sources = (await GetAllAsync()).ToList();
         
         var newSource = new RssSourceDto
@@ -58,6 +63,7 @@ public class FileRssSourceService : IRssSourceService
             var options = new JsonSerializerOptions { WriteIndented = true };
             var json = JsonSerializer.Serialize(sources, options);
             await File.WriteAllTextAsync(_filePath, json);
+            _logger.LogInformation("Successfully added and saved new RSS source: {Url}", request.Url);
         }
         catch (Exception ex)
         {

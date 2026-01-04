@@ -48,6 +48,9 @@ TestResults/
 *.sln.docstates
 *.suo
 
+# Research and Design
+Research/
+
 # User-specific files
 *.rsuser
 *.suo
