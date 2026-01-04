@@ -16,5 +16,17 @@
     "Url": "https://example.com/rss",
     "Name": "Example RSS",
     "Description": "User uploaded source"
+  },
+  {
+    "Id": "9d723091-24d9-470b-832e-c7dc2a018b09",
+    "Url": "https://example.com/rss",
+    "Name": "Example RSS",
+    "Description": "User uploaded source"
+  },
+  {
+    "Id": "67deb887-7f71-449b-ac41-78be76f16bed",
+    "Url": "https://example.com/rss",
+    "Name": "Example RSS",
+    "Description": "User uploaded source"
   }
 ]
