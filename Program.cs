@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ReadWithWrite.Data;
 using ReadWithWrite.Services;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +9,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDbContext<WritingDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("WritingConnection")));
+
 builder.Services.AddScoped<IRssSourceService, FileRssSourceService>();
 builder.Services.AddHostedService<RssFetchService>();
+
+// Writing Services
+builder.Services.AddScoped<IPromptService>(sp => 
+{
+    var logger = sp.GetRequiredService<ILogger<PromptService>>();
+    return new PromptService(Path.Combine(builder.Environment.ContentRootPath, "Data", "Prompts"), logger);
+});
+builder.Services.AddScoped<IDailyPromptEngine, DailyPromptEngine>();
+builder.Services.AddScoped<ILLMService, MockLLMService>();
+builder.Services.AddScoped<WritingService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
