@@ -64,11 +64,6 @@
     "Url": "https://example.com/rss",
     "Name": "Example RSS",
     "Description": "User uploaded source"
-  },
-  {
-    "Id": "05b0cf67-6c0d-49ec-ac4d-7094fb219084",
-    "Url": "https://example.com/rss",
-    "Name": "Example RSS",
-    "Description": "User uploaded source"
+
   }
 ]
