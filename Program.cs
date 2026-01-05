@@ -22,7 +22,7 @@ builder.Services.AddScoped<IPromptService>(sp =>
     return new PromptService(Path.Combine(builder.Environment.ContentRootPath, "Data", "Prompts"), logger);
 });
 builder.Services.AddScoped<IDailyPromptEngine, DailyPromptEngine>();
-builder.Services.AddScoped<ILLMService, MockLLMService>();
+builder.Services.AddScoped<ILLMService, LLMService>();
 builder.Services.AddScoped<WritingService>();
 
 builder.Services.AddControllers();
