@@ -18,7 +18,8 @@ public class AliyunQwenProvider : ILLMProvider
     public AliyunQwenProvider(HttpClient httpClient, IConfiguration configuration, ILogger<AliyunQwenProvider> logger)
     {
         _httpClient = httpClient;
-        _apiKey = configuration["LLM:AliyunApiKey"] ?? string.Empty;
+        // _apiKey = configuration["LLM:AliyunApiKey"] ?? string.Empty; // Read API Key from secret_api_key.txt ranther than Configuration, I removed LLM:AliyunApiKey from appsettings.json
+        _apiKey = System.IO.File.ReadAllText("secret_api_key.txt").Trim();
         _logger = logger;
     }
 
