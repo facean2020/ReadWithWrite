@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadWithWrite", "ReadWithWrite.csproj", "{4EB56774-A09A-AAD7-348E-734199011693}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadWithWrite", "Backend\ReadWithWrite.csproj", "{4EB56774-A09A-AAD7-348E-734199011693}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadWithWrite.Tests", "ReadWithWrite.Tests\ReadWithWrite.Tests.csproj", "{AC83DE5D-D52F-9B45-B84E-8F88B9C7234F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadWithWrite.Tests", "Backend\ReadWithWrite.Tests\ReadWithWrite.Tests.csproj", "{AC83DE5D-D52F-9B45-B84E-8F88B9C7234F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,20 @@
+[
+  {
+    "Id": "98ed65b9-5423-4c98-927f-5763fae81c31",
+    "Url": "https://news.ycombinator.com/rss",
+    "Name": "Hacker News",
+    "Description": "Tech news"
+  },
+  {
+    "Id": "d4048da7-e7ec-437a-8343-774b4579808a",
+    "Url": "https://feeds.bbci.co.uk/news/world/asia/rss.xml",
+    "Name": "BBC News Asia",
+    "Description": null
+  },
+  {
+    "Id": "5277a2e8-c1a0-4cb0-ae59-7df59392a5ae",
+    "Url": "https://example.com/rss",
+    "Name": "Example RSS",
+    "Description": "User uploaded source"
+  }
+]
