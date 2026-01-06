@@ -60,6 +60,12 @@ public class FileRssSourceService : IRssSourceService
 
         try
         {
+            var directory = Path.GetDirectoryName(_filePath);
+            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
             var options = new JsonSerializerOptions { WriteIndented = true };
             var json = JsonSerializer.Serialize(sources, options);
             await File.WriteAllTextAsync(_filePath, json);

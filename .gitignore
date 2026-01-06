@@ -23,7 +23,8 @@ out/
 .DS_Store
 Thumbs.db
 
-# Environment variables
+# Data files
+Data/rss-sources.json
 .env
 .env.local
 
