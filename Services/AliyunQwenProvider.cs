@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
 namespace ReadWithWrite.Services;
 
@@ -15,11 +16,11 @@ public class AliyunQwenProvider : ILLMProvider
     private readonly string _apiKey;
     private readonly ILogger<AliyunQwenProvider> _logger;
 
-    public AliyunQwenProvider(HttpClient httpClient, IConfiguration configuration, ILogger<AliyunQwenProvider> logger)
+    public AliyunQwenProvider(HttpClient httpClient, IConfiguration configuration, ILogger<AliyunQwenProvider> logger, IHostEnvironment env)
     {
         _httpClient = httpClient;
         // _apiKey = configuration["LLM:AliyunApiKey"] ?? string.Empty; // Read API Key from secret_api_key.txt ranther than Configuration, I removed LLM:AliyunApiKey from appsettings.json
-        _apiKey = System.IO.File.ReadAllText("secret_api_key.txt").Trim();
+        _apiKey = System.IO.File.ReadAllText(System.IO.Path.Combine(env.ContentRootPath, "secret_api_key.txt")).Trim();
         _logger = logger;
     }
 
