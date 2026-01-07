@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# 获取脚本所在目录和应用根目录
+# Get the script directory and the application root directory
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 APP_DIR="$( cd "$SCRIPT_DIR/.." && pwd )"
 LOG_FILE="$APP_DIR/app.log"
 PORT=3000
 
 start() {
-    # 检查端口是否被占用
+    # Check if the port is already in use
     if lsof -Pi :$PORT -sTCP:LISTEN -t >/dev/null ; then
         echo "Error: Port $PORT is already in use."
         exit 1
@@ -16,7 +16,7 @@ start() {
     echo "Starting web-app on port $PORT..."
     cd "$APP_DIR"
     
-    # 在后台启动应用并记录日志
+    # Start the application in the background and record logs
     nohup npm run dev -- --port $PORT > "$LOG_FILE" 2>&1 &
     
     echo "Web-app is starting. You can check logs at: $LOG_FILE"
@@ -25,7 +25,7 @@ start() {
 
 stop() {
     echo "Stopping web-app on port $PORT..."
-    # 查找占用指定端口的进程并杀死它
+    # Find the process ID occupying the port and kill it
     PID=$(lsof -t -i:$PORT)
     if [ -n "$PID" ]; then
         kill $PID
