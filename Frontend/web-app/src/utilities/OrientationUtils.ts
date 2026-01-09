@@ -1,19 +1,23 @@
-export class PlatformUtils {
+import { DeviceDetector } from './DeviceDetector';
+
+export class OrientationUtils {
     userPlatform: string;
     userOrientation: string;
+    private onOrientationChange?: (orientation: string) => void;
 
-    constructor() {
+    constructor(onOrientationChange?: (orientation: string) => void) {
+        this.onOrientationChange = onOrientationChange;
         const hasWindow = typeof window !== 'undefined';
         this.userPlatform = typeof navigator !== 'undefined' ? navigator.userAgent : '';
         
-        if (hasWindow && (PlatformUtils.isPhoneStatic(this.userPlatform) || PlatformUtils.isPadStatic(this.userPlatform))) {
+        if (hasWindow && (DeviceDetector.isPhone(this.userPlatform) || DeviceDetector.isPad(this.userPlatform))) {
             this.userOrientation = window?.screen.orientation?.type ?? 'landscape-primary';
         } else {
             this.userOrientation = "landscape-primary";
         }
     }
 
-    initilize(): void {
+    initialize(): void {
         this.startListening();
     }
 
@@ -24,11 +28,14 @@ export class PlatformUtils {
     private orientationChangeHandler = () => {
         if (typeof window === 'undefined') return;
         this.userOrientation = window?.screen.orientation?.type ?? 'landscape-primary';
+        if (this.onOrientationChange) {
+            this.onOrientationChange(this.userOrientation);
+        }
     }
 
     startListening(): void {
         if (typeof window === 'undefined') return;
-        if (PlatformUtils.isPhoneStatic(this.userPlatform) && (window.screen && 'onchange' in window.screen.orientation)) {
+        if (DeviceDetector.isPhone(this.userPlatform) && (window.screen && 'onchange' in window.screen.orientation)) {
             window.screen.orientation.addEventListener('change', this.orientationChangeHandler);
         } else {
             window.addEventListener('orientationchange', this.orientationChangeHandler);
@@ -37,21 +44,11 @@ export class PlatformUtils {
 
     stopListening(): void {
         if (typeof window === 'undefined') return;
-        if (PlatformUtils.isPhoneStatic(this.userPlatform) && (window.screen && 'onchange' in window.screen.orientation)) {
+        if (DeviceDetector.isPhone(this.userPlatform) && (window.screen && 'onchange' in window.screen.orientation)) {
             window.screen.orientation.removeEventListener('change', this.orientationChangeHandler);
         } else {
             window.removeEventListener('orientationchange', this.orientationChangeHandler);
         }
-    }
-
-    static isPhoneStatic(userAgent: string): boolean {
-        const ua = userAgent || (typeof navigator !== "undefined" ? navigator.userAgent : "");
-        return /Mobi|Android|iPhone|iPod/i.test(ua);
-    }
-
-    static isPadStatic(userAgent: string): boolean {
-        const ua = userAgent || (typeof navigator !== "undefined" ? navigator.userAgent : "");
-        return /iPad|Tablet|Nexus 7|Nexus 10|KFAPWI/i.test(ua);
     }
 
     getOrientation(): string {
