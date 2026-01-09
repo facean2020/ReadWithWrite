@@ -13,6 +13,14 @@ export class PlatformUtils {
         }
     }
 
+    initilize(): void {
+        this.startListening();
+    }
+
+    destroy(): void {
+        this.stopListening();
+    }
+
     private orientationChangeHandler = () => {
         if (typeof window === 'undefined') return;
         this.userOrientation = window?.screen.orientation?.type ?? 'landscape-primary';
