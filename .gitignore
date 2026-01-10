@@ -4,6 +4,15 @@ venv/
 .venv/
 env/
 
+# Python intermediate files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+
 # Build and output
 dist/
 build/
