@@ -1,10 +1,10 @@
 # Web API Design
 
-状态: 未开始
+Status: Not Started
 
-# Reader相关
+# Reader Related
 
-1. 获取文章列表
+1. Get article list
 
 ```jsx
 GET /api/articles
@@ -28,7 +28,7 @@ Response 200:
 }
 ```
 
-2. 上传RSS信息源
+2. Upload RSS source
 
 ```jsx
 POST /api/rss-sources
@@ -45,7 +45,7 @@ Response 200:
 }
 ```
 
-3. 获取推荐RSS信息源
+3. Get recommended RSS sources
 
 ```jsx
 GET /api/rss-sources/recommended
@@ -61,9 +61,9 @@ Response 200:
 ]
 ```
 
-# Writing相关
+# Writing Related
 
-1. 提供每日写作题目
+1. Provide daily writing prompt
 
 ```jsx
 GET /api/writing/daily-prompt
@@ -75,7 +75,7 @@ Response 200:
 }
 ```
 
-1. 上传写作，获取提示与修改
+2. Submit writing for revision and feedback
 
 ```jsx
 POST /api/writing/revise
@@ -90,5 +90,42 @@ Response 200:
   "original": "I has went to school yesterday.",
   "revised": "I went to school yesterday.",
   "feedback": "Verb tense error: 'has went' → 'went'. Also, 'I has' should be 'I have' or simply use past simple."
+}
+```
+
+3. Get writing history list
+
+```jsx
+GET /api/writing/history
+Query: 
+  page=1
+  pageSize=50
+
+Response 200:
+[
+  {
+    "id": "guid",
+    "topicTitle": "...",
+    "content": "...",
+    "revisedContent": "...",
+    "feedback": "...",
+    "createdAt": "2026-01-20T10:00:00Z"
+  }
+]
+```
+
+4. Get specific writing history
+
+```jsx
+GET /api/writing/history/{id}
+
+Response 200:
+{
+  "id": "guid",
+  "topicTitle": "...",
+  "content": "...",
+  "revisedContent": "...",
+  "feedback": "...",
+  "createdAt": "2026-01-20T10:00:00Z"
 }
 ```
