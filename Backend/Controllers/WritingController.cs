@@ -64,6 +64,45 @@ public class WritingController : ControllerBase
             return StatusCode(500, "Internal server error");
         }
     }
+
+    [HttpGet("history")]
+    // Untested
+    // Get writing all history for the user
+    public async Task<IActionResult> GetAllHistory(int page=1, int pageSize=50)
+    {
+        _logger.LogInformation("Received request for writing history.");
+        try
+        {
+            var history = await _writingService.GetArrayAsync(page, pageSize);
+            return Ok(history);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while fetching writing history.");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpGet("history/{id}")]
+    // Untested
+    public async Task<IActionResult> GetHistoryById(Guid id)
+    {
+        _logger.LogInformation("Received request for writing history by ID: {Id}", id);
+        try
+        {
+            var session = await _writingService.GetByIdAsync(id);
+            if (session == null)
+            {
+                return NotFound();
+            }
+            return Ok(session);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while fetching writing history by ID.");
+            return StatusCode(500, "Internal server error");
+        }
+    }
 }
 
 public class ReviseRequest

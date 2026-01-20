@@ -77,4 +77,47 @@ public class WritingService
 
         return (text, revised, feedback);
     }
+
+    // Untested
+    public async Task<WritingSession[]> GetArrayAsync(int pageNumber, int pageSize)
+    {
+        _logger.LogInformation("Fetching writing sessions. Page: {PageNumber}, Size: {PageSize}", pageNumber, pageSize);
+        WritingSession[] sessions = await _context.WritingSessions
+            .AsNoTracking()
+            .OrderByDescending(ws => ws.CreatedAt)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToArrayAsync();
+        _logger.LogInformation("Fetched {SessionCount} writing sessions.", sessions.Length);
+        return sessions;
+    }
+
+    // Untested
+    public async Task<WritingSession?> GetByIdAsync(Guid id)
+    {
+        _logger.LogInformation("Fetching writing session by ID: {SessionId}", id);
+        var session = await _context.WritingSessions
+            .AsNoTracking()
+            .FirstOrDefaultAsync(ws => ws.Id == id);
+
+        if (session == null)
+        {
+            _logger.LogWarning("No writing session found with ID: {SessionId}", id);
+        }
+        else
+        {
+            _logger.LogInformation("Writing session found with ID: {SessionId}", id);
+        }
+
+        return session;
+    }
+
+    // Untested
+    public async Task<int> GetTotalCountAsync()
+    {
+        _logger.LogInformation("Fetching total count of writing sessions.");
+        int count = await _context.WritingSessions.CountAsync();
+        _logger.LogInformation("Total writing sessions count: {Count}", count);
+        return count;
+    }
 }
