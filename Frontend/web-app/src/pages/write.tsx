@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { History, ChevronLeft } from 'lucide-react';
+import { History, ChevronLeft, Loader2 } from 'lucide-react';
 import {
     Sheet,
     SheetContent,
@@ -179,9 +179,44 @@ HistoryButton.displayName = "HistoryButton";
 
 const Write: React.FC = () => {
     const [text, setText] = useState<string>('');
+    const [revisedText, setRevisedText] = useState<string>('');
+    const [feedback, setFeedback] = useState<string>('');
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [dailyTopic, setDailyTopic] = useState<string>("Today's topic");
 
-  return (
-    <div className="p-6 relative">
+    useEffect(() => {
+        const fetchTopic = async () => {
+            // Mocking backend call
+            setTimeout(() => {
+                setDailyTopic("Describe your favorite childhood memory and explain why it is significant to you.");
+            }, 500);
+        };
+        fetchTopic();
+    }, []);
+
+    const handleSubmit = async () => {
+        if (!text.trim()) return;
+        setIsSubmitting(true);
+        
+        // Mocking backend processing time
+        setTimeout(() => {
+            setRevisedText("I distinctly remember my favorite childhood memory, which was visiting my grandparents' farm every summer. This experience was significant because it taught me the value of hard work and the beauty of nature.");
+            setFeedback("Great effort! Your sentences are clear, but you could add more descriptive adjectives to make the memory more vivid. Consider using words like 'vibrant', 'nostalgic', or 'serene'.");
+            
+            setIsSubmitting(false);
+
+            // Scroll down after a short delay to allow UI to render
+            setTimeout(() => {
+                window.scrollTo({
+                    top: document.documentElement.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }, 100);
+        }, 1500);
+    };
+
+    return (
+        <div className="p-6 relative pb-20">
         <div className="top-6 right-6 absolute">
             <Sheet>
                 <SheetTrigger asChild>
@@ -199,7 +234,7 @@ const Write: React.FC = () => {
 
         <div className="content-center my-6 flex justify-center">
             <div className="w-full max-w-md">
-                <MyCard dailyTopic="Today's topic" />
+                <MyCard dailyTopic={dailyTopic} />
             </div>
         </div>
 
@@ -215,9 +250,45 @@ const Write: React.FC = () => {
 
         <div className="content-footer my-6 flex justify-center">
             <div className="w-full max-w-md flex justify-end">
-                <Button className='rounded-xl' onClick={() => console.log('Submit:', text)}>Submit</Button>
+                <Button 
+                    className='rounded-xl' 
+                    onClick={handleSubmit} 
+                    disabled={isSubmitting || !text.trim()}
+                >
+                    {isSubmitting ? (
+                        <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Analyzing...
+                        </>
+                    ) : 'Submit'}
+                </Button>
             </div>
         </div>
+
+        {revisedText && (
+            <div className="mt-12 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <Separator className="my-8" />
+                <div className="flex flex-col items-center">
+                    <div className="w-full max-w-md space-y-6">
+                        <h2 className="text-2xl font-bold text-left">Revision Result</h2>
+                        
+                        <div>
+                            <h4 className="text-sm font-medium text-slate-400 mb-2">Revised Content</h4>
+                            <div className="p-4 border rounded-xl shadow-sm bg-blue-50/30 border-blue-100 min-h-[100px] whitespace-pre-wrap">
+                                {revisedText}
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 className="text-sm font-medium text-slate-400 mb-2">Feedback</h4>
+                            <div className="p-4 border rounded-xl bg-amber-50/30 border-amber-100 text-amber-900 leading-relaxed">
+                                {feedback}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )}
     </div>
   );
 };
