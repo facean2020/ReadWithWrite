@@ -56,7 +56,9 @@ public class ArticlesIntegrationTests : IClassFixture<WebApplicationFactory<Prog
             {
                 Id = "test-id-" + Guid.NewGuid(),
                 Title = "Test Article",
+                Description = "Test Description",
                 Link = "https://example.com/test",
+                PicUrl = "https://example.com/test.jpg",
                 PublishDate = DateTimeOffset.Now,
                 SourceName = "Test Source",
                 SourceId = Guid.NewGuid()
@@ -75,12 +77,17 @@ public class ArticlesIntegrationTests : IClassFixture<WebApplicationFactory<Prog
         var result = await response.Content.ReadFromJsonAsync<ArticlesResponse>();
         
         Assert.NotNull(result);
-        Assert.Contains(result.Items, a => a.Title == "Test Article");
+        var item = result.Items.FirstOrDefault(a => a.Title == "Test Article");
+        Assert.NotNull(item);
+        Assert.Equal("Test Description", item.Description);
+        Assert.Equal("Test Source", item.Source);
+        Assert.Equal("https://example.com/test", item.Link);
+        Assert.Equal("https://example.com/test.jpg", item.PicUrl);
     }
 
     private class ArticlesResponse
     {
-        public List<Article> Items { get; set; } = new();
+        public List<ArticleDto> Items { get; set; } = new();
         public int TotalCount { get; set; }
         public int Page { get; set; }
         public int PageSize { get; set; }

@@ -34,6 +34,16 @@ public class ArticlesController : ControllerBase
         var items = query
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
+            .Select(a => new ArticleDto
+            {
+                Id = a.Id,
+                Title = a.Title,
+                Description = a.Description,
+                Source = a.SourceName,
+                PublishDate = a.PublishDate,
+                Link = a.Link,
+                PicUrl = a.PicUrl
+            })
             .ToList();
 
         _logger.LogInformation("Returning {Count} articles out of {TotalCount}", items.Count, totalCount);

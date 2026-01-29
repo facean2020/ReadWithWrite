@@ -16,5 +16,29 @@
     "Url": "https://example.com/rss",
     "Name": "Example RSS",
     "Description": "User uploaded source"
+  },
+  {
+    "Id": "0e78a3ac-574e-4461-ab0b-7489a433ba8e",
+    "Url": "https://example.com/rss",
+    "Name": "Example RSS",
+    "Description": "User uploaded source"
+  },
+  {
+    "Id": "3fff38ee-27ca-40d2-a049-3fd529a3574b",
+    "Url": "https://example.com/rss",
+    "Name": "Example RSS",
+    "Description": "User uploaded source"
+  },
+  {
+    "Id": "478d8919-4706-4d8d-ba29-ffa5f1a08f48",
+    "Url": "https://example.com/rss",
+    "Name": "Example RSS",
+    "Description": "User uploaded source"
+  },
+  {
+    "Id": "9b681da7-0db5-47b6-b4f4-7983b5d2ceeb",
+    "Url": "https://example.com/rss",
+    "Name": "Example RSS",
+    "Description": "User uploaded source"
   }
 ]

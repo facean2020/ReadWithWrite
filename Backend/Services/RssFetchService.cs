@@ -87,7 +87,9 @@ public class RssFetchService : BackgroundService
                     Id = articleId,
                     Title = item.Title.Text,
                     Link = link,
-                    Summary = item.Summary?.Text ?? item.Content?.ToString(),
+                    Description = item.Summary?.Text ?? item.Content?.ToString(),
+                    PicUrl = item.Links.FirstOrDefault(l => l.RelationshipType == "enclosure" && l.MediaType != null && l.MediaType.StartsWith("image/"))?.Uri.ToString() ?? 
+                             item.ElementExtensions.FirstOrDefault(e => e.OuterName == "content" && e.OuterNamespace == "http://search.yahoo.com/mrss/")?.GetObject<XmlElement>().GetAttribute("url"),
                     PublishDate = item.PublishDate != default ? item.PublishDate : item.LastUpdatedTime,
                     SourceName = source.Name,
                     SourceId = source.Id
