@@ -25,10 +25,18 @@ export class ImageLRUCache {
     // Put an image blob into the cache
     put(key: string, value: ImageBlob): void {
         if (this.cache.has(key)) {
+            const oldValue = this.cache.get(key);
+            if (oldValue && oldValue.startsWith('blob:')) {
+                URL.revokeObjectURL(oldValue);
+            }
             this.cache.delete(key);
         } else if (this.cache.size >= this.capacity) {
             const oldestKey = this.cache.keys().next().value;
             if (oldestKey)  {
+                const oldValue = this.cache.get(oldestKey);
+                if (oldValue && oldValue.startsWith('blob:')) {
+                    URL.revokeObjectURL(oldValue);
+                }
                 this.cache.delete(oldestKey);
             }
         }
@@ -40,6 +48,11 @@ export class ImageLRUCache {
     }
 
     clear(): void {
+        this.cache.forEach((value) => {
+            if (value.startsWith('blob:')) {
+                URL.revokeObjectURL(value);
+            }
+        });
         this.cache.clear();
     }
 }
