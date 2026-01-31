@@ -1,3 +1,7 @@
 {
-  "welcome": "欢迎使用 ReadWithWrite"
+  "welcome": "欢迎使用 ReadWithWrite",
+  "home": {
+    "title": "欢迎回来",
+    "subtitle": "探索今日洞察并开启您的写作之旅。"
+  }
 }

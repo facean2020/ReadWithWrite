@@ -1,3 +1,7 @@
 {
-  "welcome": "Welcome to ReadWithWrite"
+  "welcome": "Welcome to ReadWithWrite",
+  "home": {
+    "title": "Welcome Back",
+    "subtitle": "Explore today's insights and start your writing journey."
+  }
 }
