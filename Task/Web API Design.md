@@ -18,8 +18,11 @@ Response 200:
     {
       "id": "guid-or-url-hash",
       "title": "How AI is Changing Education",
+      "description": "Description"
       "source": "TechCrunch",
       "publishDate": "2025-12-20T08:30:00Z"
+      "link": "https://example.com/blog/blogid"
+      "picUrl": "https://example.com/blog/blogid/media/img?imgid"
     }
   ],
   "totalCount": 45,
